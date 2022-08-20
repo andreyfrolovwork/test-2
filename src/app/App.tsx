@@ -8,7 +8,7 @@ import React, { useEffect } from 'react'
 import { extractAuthData } from '@/processes/redux/authSlice'
 import NotActivated from '@/pages/not-activated/NotActivated'
 import { useAppDispatch } from '@/processes/redux/hooks'
-import Users from '@/pages/admin-panel-pages/users/Users'
+import Contacts from '@/pages/admin-panel-pages/contacts/Contacts'
 
 
 function App() {
@@ -21,7 +21,8 @@ function App() {
     <div className="app-wrapper">
       <Routes>
         <Route path="/admin-panel/*" element={<AdminPanel />}>
-          <Route path="users" element={<Users />} />
+          <Route path="" element={<Contacts />} />
+          <Route path="users" element={<Contacts />} />
         </Route>
         <Route path="/" element={<Redirect />} />
         <Route path="/login" element={<Login />} />

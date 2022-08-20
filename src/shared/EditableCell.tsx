@@ -13,6 +13,7 @@ import {
 import { CheckCircleOutlined, UploadOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import React from 'react'
+import { IContact } from '@/processes/models/IContact'
 
 const { Text } = Typography
 
@@ -20,7 +21,7 @@ const { Option } = Select
 
 export type TRecord = any
 
-export interface IEditableCell {
+export interface IEditableCell<R> {
   editing: boolean
   dataIndex: string
   title: string
@@ -29,14 +30,14 @@ export interface IEditableCell {
   dataType: string
   edKey: null | number
   save: (recordKey: number) => void
-  edit: (record: any) => void
-  deletef: (record: any) => void
+  edit: (record: R) => void
+  deletef: (record: R) => void
   cancel: () => void
   editable: boolean
   linkfield: string
 }
 
-const EditableCell: React.FC<IEditableCell> = ({
+const EditableCell: React.FC<IEditableCell<IContact>> = ({
   editing,
   dataIndex,
   title,
@@ -242,6 +243,7 @@ const EditableCell: React.FC<IEditableCell> = ({
       </td>
     )
   }
+
   if (dataType === 'link') {
     return (
       <td {...restProps}>

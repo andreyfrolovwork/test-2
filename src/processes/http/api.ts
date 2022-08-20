@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 import { AuthResponse } from '@/processes/models/response/AuthResponse'
 
 const $api = axios.create({
@@ -6,9 +6,13 @@ const $api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 })
 
-$api.interceptors.request.use((config: any) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
-  return config
+$api.interceptors.request.use((config) => {
+  if(config){
+    if(config.headers){
+      config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+      return config
+    }
+  }
 })
 
 $api.interceptors.response.use(
@@ -23,7 +27,6 @@ $api.interceptors.response.use(
         const response = await axios.get<AuthResponse>(`${import.meta.env.VITE_API_URL}/refresh`, {
           withCredentials: true,
         })
-
         localStorage.setItem('token', response.data.accessToken)
         return $api.request(originalRequest)
       } catch (e) {

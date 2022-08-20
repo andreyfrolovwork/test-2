@@ -13,11 +13,11 @@ const items: MenuProps['items'] = [
     children: [
       {
         type: 'group',
-        label: 'Artists',
+        label: 'Contacts',
         children: [
           {
-            label: 'All users',
-            key: 'key-all-users',
+            label: 'All contacts',
+            key: 'key-all-contacts',
           },
         ],
       },
@@ -40,7 +40,7 @@ const AdminPanel = () => {
   const onClick: MenuProps['onClick'] = e => {
     setCurrent(e.key)
     switch (e.key) {
-      case 'key-all-users':
+      case 'key-all-contacts':
         navigate('users')
         break
 

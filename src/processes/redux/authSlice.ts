@@ -4,13 +4,9 @@ import { IUser } from '@/processes/models/IUser'
 import axios from 'axios'
 import { AuthResponse } from '@/processes/models/response/AuthResponse'
 
-interface IAuthData {
+export interface IAuthData {
   email: string
   password: string
-}
-
-export interface ISignUpData extends IAuthData {
-  isArtist: boolean
 }
 
 export const login = createAsyncThunk(
@@ -21,18 +17,20 @@ export const login = createAsyncThunk(
       localStorage.setItem('token', response.data.accessToken)
       dispatch(setAuth(true))
       dispatch(setUser(response.data.user))
-    } catch (e: any) {}
+    } catch (e: unknown) {
+      console.log(e);
+    }
   },
 )
 export const signup = createAsyncThunk(
   'auth/signup',
-  async (newUser: ISignUpData, { dispatch }) => {
+  async (newUser: IAuthData, { dispatch }) => {
     try {
       const response = await AuthService.signup(newUser)
       localStorage.setItem('token', response.data.accessToken)
       dispatch(setAuth(true))
       dispatch(setUser(response.data.user))
-    } catch (e: any) {}
+    } catch (e: unknown) {console.log(e);}
   },
 )
 export const logout = createAsyncThunk('auth/logout', async (arg: void, { dispatch }) => {
@@ -41,7 +39,7 @@ export const logout = createAsyncThunk('auth/logout', async (arg: void, { dispat
     dispatch(setAuth(false))
     dispatch(setUser({} as IUser))
     await AuthService.logout()
-  } catch (e: any) {}
+  } catch (e: unknown) {console.log(e);}
 })
 
 export const checkAuth = createAsyncThunk('auth/checkAuth', async (arg: void, { dispatch }) => {
@@ -53,7 +51,8 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async (arg: void, { 
     localStorage.setItem('token', response.data.accessToken)
     dispatch(setAuth(true))
     dispatch(setUser(response.data.user))
-  } catch (e: any) {
+  } catch (e: unknown) {
+    console.log(e);
   } finally {
     dispatch(setLoading(false))
   }
@@ -84,7 +83,7 @@ const authSlice = createSlice({
       } else {
         state.user = {
           email: '',
-          id_user: '',
+          id_user: null,
           role: '',
         }
 
@@ -112,7 +111,7 @@ const authSlice = createSlice({
       if (isAuth) {
         state.isAuth = isAuth === 'true'
         state.user.email = localStorage.getItem('email')
-        state.user.id_user = localStorage.getItem('id_user')
+        state.user.id_user = Number(localStorage.getItem('id_user'))
         state.user.role = localStorage.getItem('role')
       }
     },

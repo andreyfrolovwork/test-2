@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { Button, Form, Input } from 'antd'
-import { signup } from '@/processes/redux/authSlice'
-import { useDispatch } from 'react-redux'
+import { IAuthData, signup } from '@/processes/redux/authSlice'
 import { useNavigate } from 'react-router-dom'
-import { useAppSelector } from '@/processes/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/processes/redux/hooks'
 
 const formItemLayout = {
   labelCol: {
@@ -48,13 +47,13 @@ const Registration = () => {
     }
   }, [isAuth, navigate])
   const [form] = Form.useForm()
-  const dispatch = useDispatch()
-  const onFinish = (values: any) => {
-    dispatch<any>(
+  const dispatch = useAppDispatch()
+  const onFinish = (values: IAuthData) => {
+    console.log(values);
+    dispatch(
       signup({
         email: values.email,
         password: values.password,
-        isArtist: values.isArtist,
       }),
     )
   }
@@ -69,7 +68,6 @@ const Registration = () => {
         initialValues={{
           residence: ['zhejiang', 'hangzhou', 'xihu'],
           prefix: '86',
-          isArtist: true,
         }}
         scrollToFirstError
       >
