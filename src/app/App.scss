@@ -1,0 +1,26 @@
+@import "../pages/login/Login";
+@import "../pages/registration/Registration";
+
+.dflex {
+  display: flex;
+}
+
+.aicenter {
+  align-items: center;
+}
+
+.jccenter {
+  justify-content: center;
+}
+
+.fdcolumn {
+  flex-direction: column;
+}
+
+.fdrow {
+  flex-direction: row;
+}
+
+.hvh100 {
+  height: 100vh;
+}

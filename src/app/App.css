@@ -1,0 +1,33 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw; }
+
+.reg-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+
+.dflex {
+  display: flex; }
+
+.aicenter {
+  align-items: center; }
+
+.jccenter {
+  justify-content: center; }
+
+.fdcolumn {
+  flex-direction: column; }
+
+.fdrow {
+  flex-direction: row; }
+
+.hvh100 {
+  height: 100vh; }
+
+/*# sourceMappingURL=App.css.map */
